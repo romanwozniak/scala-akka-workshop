@@ -1,0 +1,28 @@
+.reveal ul, .reveal ol {
+	display: inline-block;
+}
+
+.reveal li {
+	text-align: left;
+	margin-top: 0.4em;
+	width: auto;
+}
+
+.before-start ul {
+	list-style: none;
+	text-align: left;
+}
+
+.before-start ul ul {
+	margin-left: 2em;
+}
+
+.before-start ul ul > li {
+	margin-top: 0.4em;
+}
+
+.before-start ul ul > li:before {
+	content: "–";
+	margin-left: -1em;
+	position: absolute;
+}

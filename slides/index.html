@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>scala-akka-workshop</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -15,6 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/styles.css">
 		<link rel="stylesheet" href="css/theme/typesafe.css" id="theme">
 
 		<!-- Code syntax highlighting -->
@@ -23,6 +24,7 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+
 	</head>
 
 	<body>
@@ -32,22 +34,59 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background="#ee6768">
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
+					<h2>Building concurrent and scalable applications with Scala + Akka</h2>
+					<br/>
 					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+						<img height="80" src="images/Scala_logo.png" alt="Scala">
+						<img height="80" src="images/akka.png" alt="Akka">
+					</p>
+					<br/><br/>
+					<h5>by Roman Wozniak</h5>
+					<p>
+						<small>Contact: <a href="mailto:romeo.wozniak@gmail.com">romeo.wozniak@gmail.com</a></small>
+					</p>
+					<p>
+						<small>LinkedIn: <a target="_blank" href="https://www.linkedin.com/pub/roman-wozniak/2a/961/42">linkedin.com/roman-wozniak</a></small>
 					</p>
 				</section>
 
-				<section>
-				    <video controls muted class="stretch" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+				<section class="before-start">
+					<h3>Before we start</h3>
+					<br/>
+					<ul style="list-style:none;">
+						<li>
+							Code:
+							<a target="_blank" href="https://github.com/romanwozniak/scala-akka-workshop">https://github.com/romanwozniak/scala-akka-workshop</a>
+							<ul>
+								<li>/scala</li>
+								<li>/slides</li>
+							</ul>
+						</li>
+						<li>&nbsp;</li>
+						<li>
+							Slides:
+							<a target="_blank" href="http://romanwozniak.github.io/scala-akka-workshop/slides">http://romanwozniak.github.io/scala-akka-workshop/slides</a>
+							<ul>
+								<li>Or <b style="font-weight: normal;">/slides/index.html</b> from master branch</li>
+							</ul>
+						</li>
+					</ul>
 				</section>
 
-				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
+				<section id="outline">
+					<h3>Outline</h3>
+					<ol>
+						<li>What is Akka</li>
+						<li>Adding actors into an application</li>
+						<li>Actor lifecycle</li>
+						<li>Interacting with actors: tell, ask, pipeTo</li>
+						<li>Modifying actor behavior</li>
+						<li>Testing actors with Akka TestKit</li>
+						<li>Routers and dispatchers</li>
+						<li>Fault tolerance: handling exceptions</li>
+						<li>Scalability: remote actors</li>
+						<li>Monitoring Akka application</li>
+					</ol>
 				</section>
 
 				<!-- Example of nested vertical slides -->
@@ -151,24 +190,6 @@
 						<a href="?transition=convex#/transitions">Convex</a> -
 						<a href="?transition=concave#/transitions">Concave</a> -
 						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
 					</p>
 				</section>
 

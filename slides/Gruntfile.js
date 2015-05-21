@@ -15,10 +15,6 @@ module.exports = function(grunt) {
 				' */'
 		},
 
-		qunit: {
-			files: [ 'test/*.html' ]
-		},
-
 		uglify: {
 			options: {
 				banner: '<%= meta.banner %>\n'
@@ -33,12 +29,12 @@ module.exports = function(grunt) {
 			core: {
 				files: {
 					'css/reveal.css': 'css/reveal.scss',
+					'css/styles.css': 'css/styles.scss',
 				}
 			},
 			themes: {
 				files: {
 					'css/theme/default.css': 'css/theme/source/default.scss',
-					'css/theme/white.css': 'css/theme/source/white.scss',
 					'css/theme/serif.css': 'css/theme/source/serif.scss',
 					'css/theme/simple.css': 'css/theme/source/simple.scss',
 					'css/theme/typesafe.css': 'css/theme/source/typesafe.scss'
@@ -90,14 +86,14 @@ module.exports = function(grunt) {
 				options: {
 					port: port,
 					base: '.',
-                    livereload: true,
+                    livereload: 35740,
                     open: true
 				}
 			}
 		},
 
 		zip: {
-			'reveal-js-presentation.zip': [
+			'slides.zip': [
 				'index.html',
 				'css/**',
 				'js/**',
@@ -120,7 +116,7 @@ module.exports = function(grunt) {
 				tasks: 'css-themes'
 			},
 			css: {
-				files: [ 'css/reveal.scss' ],
+				files: [ 'css/reveal.scss', 'css/styles.scss' ],
 				tasks: 'css-core'
 			},
             html: {
@@ -145,7 +141,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'default', [ 'css', 'js' ] );
 
 	// JS task
-	grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
+	grunt.registerTask( 'js', [ 'jshint', 'uglify'] );
 
 	// Theme CSS
 	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
@@ -161,8 +157,5 @@ module.exports = function(grunt) {
 
 	// Serve presentation locally
 	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
-
-	// Run tests
-	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );
 
 };
