@@ -10,5 +10,6 @@ object `package` {
 
   case class GetCustomerAccounts(customer: Customer, accountType: Option[AccountType] = None)
   case class CustomerAccounts(accounts: List[Account])
+  case object AccountsRetrievalTimeout
 
 }

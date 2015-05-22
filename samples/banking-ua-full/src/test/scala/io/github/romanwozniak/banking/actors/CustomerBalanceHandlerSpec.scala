@@ -1,12 +1,14 @@
 package io.github.romanwozniak.banking.actors
 
 import akka.actor.ActorSystem
-import akka.testkit.{ImplicitSender, TestKit}
+import akka.testkit.{TestActorRef, ImplicitSender, TestKit}
 import io.github.romanwozniak.banking.models._
 import io.github.romanwozniak.banking.repositories.AccountRepository
 import org.mockito.Mockito._
+import org.mockito.{Matchers => MockitoMatchers};
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
+import scala.concurrent.duration._
 
 import messages._
 
@@ -43,10 +45,10 @@ class CustomerBalanceHandlerSpec
       when(accountsRepoMock.findAccounts(customer.id, Some(DepositAccountType))) thenReturn customerAccounts.filter(_.`type` == DepositAccountType)
 
       val balanceActor = system.actorOf(CustomerBalanceHandler.props(
-        (CurrentAccountType, system.actorOf(CurrentAccountsHandler.props(accountsRepoMock), "testCurrentAccounts")),
-        (CreditAccountType, system.actorOf(CreditAccountsHandler.props(accountsRepoMock), "testCreditAccounts")),
-        (DepositAccountType, system.actorOf(DepositAccountsHandler.props(accountsRepoMock), "testDepositAccounts"))
-      ), "testBalanceActor")
+        (CurrentAccountType, system.actorOf(CurrentAccountsHandler.props(accountsRepoMock))),
+        (CreditAccountType, system.actorOf(CreditAccountsHandler.props(accountsRepoMock))),
+        (DepositAccountType, system.actorOf(DepositAccountsHandler.props(accountsRepoMock)))
+      ), "testBalanceActor1")
 
       balanceActor ! GetCustomerAccounts(customer)
       expectMsgPF() {
@@ -54,6 +56,30 @@ class CustomerBalanceHandlerSpec
           assert(customerAccounts.forall(accounts.contains(_)), "Result should contain all expected accounts")
           assert(accounts.forall(customerAccounts.contains(_)), "Result should contain only expected accounts")
       }
+
+    }
+  }
+
+
+  "A CustomerBalance Actor" must {
+    "respond with AccountsRetrievalTimeout message in case if DB layer throws exception" in {
+
+      val customer = Customer(1, "Akka", "Test")
+
+      val accountsRepoMock = mock[AccountRepository]
+      when(
+        accountsRepoMock.findAccounts(customer.id, Some(CurrentAccountType))
+      ).thenThrow(new IllegalStateException("Database is unavailable"))
+
+      val balanceActor = system.actorOf(CustomerBalanceHandler.props(
+        (CurrentAccountType, system.actorOf(CurrentAccountsHandler.props(accountsRepoMock))),
+        (CreditAccountType, system.actorOf(CreditAccountsHandler.props(accountsRepoMock))),
+        (DepositAccountType, system.actorOf(DepositAccountsHandler.props(accountsRepoMock)))
+      ), "testBalanceActor2")
+
+      balanceActor ! GetCustomerAccounts(customer)
+      expectNoMsg(5 seconds)
+      expectMsg(AccountsRetrievalTimeout)
 
     }
   }
