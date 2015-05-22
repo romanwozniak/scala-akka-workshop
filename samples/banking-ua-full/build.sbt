@@ -1,4 +1,4 @@
-name := """tickets-ua-full"""
+name := """banking-ua-full"""
 
 version := "1.0"
 
@@ -17,7 +17,10 @@ libraryDependencies ++= Seq(
 // Test dependencies
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
-  "org.scalatest"     %% "scalatest"    % "2.2.4" % "test")
+  "org.scalatest"     %% "scalatest"    % "2.2.4"     % "test",
+  "org.mockito"       %  "mockito-all"  % "1.10.19"   % "test")
 
 
 fork in run := true
+
+connectInput in run := true
