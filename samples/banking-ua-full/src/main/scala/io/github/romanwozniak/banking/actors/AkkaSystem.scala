@@ -1,6 +1,6 @@
 package io.github.romanwozniak.banking.actors
 
-import akka.actor.ActorSystem
+import akka.actor.{Props, ActorSystem}
 import io.github.romanwozniak.banking.models.{DepositAccountType, CreditAccountType, CurrentAccountType}
 import io.github.romanwozniak.banking.repositories.AccountsRepositoryImpl
 
@@ -22,4 +22,5 @@ object AkkaSystem {
       (CreditAccountType, creditAccountHandler),
       (DepositAccountType, depositAccountHandler)
     ), "balanceHandler")
+
 }

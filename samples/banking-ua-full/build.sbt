@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-remote"  % akkaVersion,
   "com.typesafe.akka" %% "akka-slf4j"   % akkaVersion,
   "ch.qos.logback"    %  "logback-classic" % "1.1.3",
-  "joda-time"         % "joda-time"     % "2.7"
+  "joda-time"         %  "joda-time"    % "2.7",
+  "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
 )
 
 // Test dependencies
