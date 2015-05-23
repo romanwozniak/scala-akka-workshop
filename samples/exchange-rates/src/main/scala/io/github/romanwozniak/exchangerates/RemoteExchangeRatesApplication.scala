@@ -9,9 +9,9 @@ import scala.concurrent.duration._
  * @author Roman Wozniak <romeo.wozniak@gmail.com>
  * @version 5/23/15, 11:00
  */
-object Application extends App {
+object RemoteExchangeRatesApplication extends App {
 
-  val exchangeRatesSystem = ActorSystem("ExchangeRates")
+  lazy val exchangeRatesSystem = ActorSystem("ExchangeRates")
 
   exchangeRatesSystem.actorOf(
     Props[ExchangeRatesActor].withRouter(
