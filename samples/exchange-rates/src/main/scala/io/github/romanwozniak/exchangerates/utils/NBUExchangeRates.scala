@@ -8,7 +8,7 @@ import io.github.romanwozniak.banking.models.Currency
  * @author Roman Wozniak <romeo.wozniak@gmail.com>
  * @version 5/23/15, 14:57
  */
-object NBUExchangeRates {
+object NBUExchangeRates extends ExchangeRatesService {
 
   private val apiUrl = ConfigFactory.load().getString("exchangeRates.privatbank.url")
 

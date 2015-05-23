@@ -1,6 +1,7 @@
 package io.github.romanwozniak.banking.repositories
 
 import io.github.romanwozniak.banking.models._
+import io.github.romanwozniak.banking.models.exceptions._
 
 import scala.util.Random
 
@@ -31,6 +32,31 @@ object AccountsRepositoryImpl extends AccountRepository {
 
   }
 
+  def withdrawMoney(accountId: Long, amount: BigDecimal): Unit = {
+    val acc = accounts.find(_.id == accountId).getOrElse(throw AccountNotFoundException)
+    acc.`type` match {
+      case CreditAccountType =>
+        CreditAccount(acc.id, acc.amount - amount, acc.currency, acc.customerId)
+      case DepositAccountType =>
+        throw OperationIsNotPermitted
+      case CurrentAccountType =>
+        if (acc.amount - amount > 0)
+          CurrentAccount(acc.id, acc.amount - amount, acc.currency, acc.customerId)
+        else throw NotEnoughMoneyException
+    }
+  }
+
+  def depositMoney(accountId: Long, amount: BigDecimal): Unit = {
+    val acc = accounts.find(_.id == accountId).getOrElse(throw AccountNotFoundException)
+    (accounts -= acc) += (acc.`type` match {
+      case CreditAccountType =>
+        CreditAccount(acc.id, acc.amount + amount, acc.currency, acc.customerId)
+      case DepositAccountType =>
+        DepositAccount(acc.id, acc.amount + amount, acc.currency, acc.customerId)
+      case CurrentAccountType =>
+        CurrentAccount(acc.id, acc.amount + amount, acc.currency, acc.customerId)
+    })
+  }
 }
 
 trait AccountRepository {
@@ -40,5 +66,10 @@ trait AccountRepository {
                              accountType: Option[AccountType] = None,
                              currency: Option[Currency] = None): List[Account]
 
-}
+  def withdrawMoney(         accountId: Long,
+                             amount: BigDecimal): Unit
 
+  def depositMoney(          accountId: Long,
+                             amount: BigDecimal): Unit
+
+}

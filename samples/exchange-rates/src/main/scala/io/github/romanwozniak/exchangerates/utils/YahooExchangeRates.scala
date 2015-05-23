@@ -8,7 +8,7 @@ import io.github.romanwozniak.banking.models.Currency
  * @author Roman Wozniak <romeo.wozniak@gmail.com>
  * @version 5/23/15, 14:42
  */
-object YahooExchangeRates {
+trait YahooExchangeRates extends ExchangeRatesService {
 
   private val apiUrl = ConfigFactory.load().getString("exchangeRates.yahoo.url")
 
@@ -24,3 +24,5 @@ object YahooExchangeRates {
   }
 
 }
+
+object YahooExchangeRates extends YahooExchangeRates

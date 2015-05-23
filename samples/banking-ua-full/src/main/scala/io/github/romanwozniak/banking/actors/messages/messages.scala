@@ -1,5 +1,6 @@
 package io.github.romanwozniak.banking.actors.messages
 
+import akka.routing.ConsistentHashingRouter.ConsistentHashable
 import io.github.romanwozniak.banking.models.{Currency, Account, AccountType, Customer}
 
 /**
@@ -12,8 +13,13 @@ object `package` {
   case class CustomerAccounts(accounts: List[Account])
   case object AccountsRetrievalTimeout
 
-  case class TransferMoney(from: Long, to: Long, currency: Currency, amount: BigDecimal)
-  case class WithdrawMoney(from: Long, currency: Currency, amount: BigDecimal)
+
+  case class WithdrawMoneyRequest(customerId: Long, withdrawMoney: WithdrawMoney)
+  case class WithdrawMoney(accountId: Long, amount: BigDecimal)
+  case class DepositMoneyRequest(customerId: Long, depositMoney: DepositMoney)
+  case class DepositMoney(accountId: Long, amount: BigDecimal)
+  case object OperationCompletedSuccessfully
+  case class OperationFailed(error: String, e: Option[Throwable] = None)
 
   case class GetExchangeRate(from: Currency, to: Currency)
   case class ExchangeRate(from: Currency, to: Currency, rate: Double)

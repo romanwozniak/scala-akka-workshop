@@ -7,7 +7,7 @@ import io.github.romanwozniak.banking.models.{EUR, USD, UAH}
 import io.github.romanwozniak.exchangerates.actors.ExchangeRatesActor
 import io.github.romanwozniak.banking.actors.messages._
 import io.github.romanwozniak.exchangerates.actors.messages._
-import io.github.romanwozniak.exchangerates.utils.{HttpDependent, ConsoleHelper}
+import io.github.romanwozniak.exchangerates.utils.{NBUExchangeRates, YahooExchangeRates, HttpDependent, ConsoleHelper}
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.StdIn
@@ -20,7 +20,8 @@ object ModifyBehaviourApplication extends App with ConsoleHelper with HttpDepend
 
   lazy val exchangeRatesSystem = ActorSystem("ExchangeRates")
 
-  val exchangeActor = exchangeRatesSystem.actorOf(Props[ExchangeRatesActor], "exchangeRates")
+  val exchangeActor = exchangeRatesSystem.actorOf(
+    ExchangeRatesActor.props(YahooExchangeRates.getRates, NBUExchangeRates.getRates), "exchangeRates")
 
   appLoop()
 
@@ -71,7 +72,6 @@ object ModifyBehaviourApplication extends App with ConsoleHelper with HttpDepend
   }
   
   def shutdown() = {
-    exchangeActor ! PoisonPill
     closeHttp()
     exchangeRatesSystem.shutdown()  
   }

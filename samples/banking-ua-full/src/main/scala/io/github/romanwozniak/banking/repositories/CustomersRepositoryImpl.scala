@@ -31,11 +31,15 @@ object CustomersRepositoryImpl extends CustomersRepository {
   
   def findById(id: Long) = customers.find(_.id == id)
 
+  def list: List[Customer] = customers.toList
+
 }
 
 trait CustomersRepository {
   
   def findById(id: Long): Option[Customer]
-  
+
+  def list: List[Customer]
+
 }
 

@@ -7,23 +7,24 @@ package io.github.romanwozniak.banking.models
 abstract class Account(
   val id: Long,
   val `type`: AccountType,
+  val amount: BigDecimal,
   val currency: Currency,
   val customerId: Long)
 
 case class DepositAccount(
   override val id: Long,
-  amount: BigDecimal,
+  override val amount: BigDecimal,
   override val currency: Currency,
-  override val customerId: Long) extends Account(id, DepositAccountType, currency, customerId)
+  override val customerId: Long) extends Account(id, DepositAccountType, amount, currency, customerId)
 
 case class CreditAccount(
   override val id: Long,
-  amount: BigDecimal,
+  override val amount: BigDecimal,
   override val currency: Currency,
-  override val customerId: Long) extends Account(id, CreditAccountType, currency, customerId)
+  override val customerId: Long) extends Account(id, CreditAccountType, amount, currency, customerId)
 
 case class CurrentAccount(
   override val id: Long,
-  amount: BigDecimal,
+  override val amount: BigDecimal,
   override val currency: Currency,
-  override val customerId: Long) extends Account(id, CurrentAccountType, currency, customerId)
+  override val customerId: Long) extends Account(id, CurrentAccountType, amount, currency, customerId)

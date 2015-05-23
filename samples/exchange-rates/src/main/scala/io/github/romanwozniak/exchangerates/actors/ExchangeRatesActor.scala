@@ -1,6 +1,6 @@
 package io.github.romanwozniak.exchangerates.actors
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Props, Actor, ActorLogging}
 import akka.pattern.pipe
 import dispatch._, Defaults._
 import io.github.romanwozniak.banking.actors.messages.GetExchangeRate
@@ -13,17 +13,25 @@ import io.github.romanwozniak.exchangerates.actors.messages._
  * @author Roman Wozniak <romeo.wozniak@gmail.com>
  * @version 5/23/15, 00:51
  */
-class ExchangeRatesActor extends Actor with ActorLogging {
+object ExchangeRatesActor {
+
+  def props(
+       yahooService: (Currency, Currency) => Future[String],
+       nbuService: (Currency, Currency) => Future[String]) = Props(classOf[ExchangeRatesActor], yahooService, nbuService)
+
+}
+
+class ExchangeRatesActor(
+        yahooService: (Currency, Currency) => Future[String],
+        nbuService: (Currency, Currency) => Future[String]) extends Actor with ActorLogging {
 
   private val exchange = """GetExchangeRate ([A-Z]{3})/([A-Z]{3})""".r
 
   def receive = yahooRates
 
-  def yahooRates: Receive = rates(YahooExchangeRates.getRates)
+  def yahooRates: Receive = rates(yahooService)
 
-  def nbuRates: Receive = rates(NBUExchangeRates.getRates)
-
-
+  def nbuRates: Receive = rates(nbuService)
 
   def rates(getRates: (Currency, Currency) => Future[String]): Receive = {
     case GetExchangeRate(from, to) =>
