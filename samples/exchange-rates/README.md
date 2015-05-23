@@ -1,11 +1,11 @@
 ExchangeRates: simple Scala + Akka application
 =========================
 
-##Covers following topics:
+###Covers following topics:
 
+* Adding actors into an application
 * Actor lifecycle
 * Interacting with actors: tell, ask, pipeTo
-* Testing actors with Akka TestKit
-* Routers and dispatchers
+* Modifying actor behavior
+* Fault tolerance: handling exceptions
 * Scalability: remote actors
-* Monitoring Akka application

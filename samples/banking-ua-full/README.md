@@ -1,7 +1,7 @@
 BankingUA: simple Scala + Akka application
 =========================
 
-##Covers following topics:
+###Covers following topics:
 
 * Actor lifecycle
 * Interacting with actors: tell, ask, pipeTo
