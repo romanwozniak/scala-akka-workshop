@@ -6,7 +6,22 @@
   margin-top: 0.4em;
   width: auto; }
 
-  .reveal pre {
+.before-start ul {
+  list-style: none;
+  text-align: left; }
+
+.before-start ul ul {
+  margin-left: 2em; }
+
+.before-start ul ul > li {
+  margin-top: 0.4em; }
+
+.before-start ul ul > li:before {
+  content: "–";
+  margin-left: -1em;
+  position: absolute; }
+
+.reveal pre {
   display: block;
   position: relative;
   width: 90%;
@@ -23,25 +38,7 @@
   padding: 5px;
   overflow: auto;
   max-height: 400px;
-  word-wrap: normal;
-  background: #3F3F3F;
-  color: #DCDCDC; }
+  word-wrap: normal; }
 
 .reveal code {
   font-family: monospace; }
-
-.before-start ul {
-  list-style: none;
-  text-align: left; }
-
-.before-start ul ul {
-  margin-left: 2em; }
-
-.before-start ul ul > li {
-  margin-top: 0.4em; }
-
-.before-start ul ul > li:before {
-  content: "–";
-  margin-left: -1em;
-  position: absolute; }
-
